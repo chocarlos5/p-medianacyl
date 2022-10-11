@@ -11,7 +11,13 @@
     margin-right: 30px;
     text-align: justify;
  }
- img{
+ img .fig1{
+  width: 70%;
+ }
+ img .fig2{
+  width: 70%;
+ }
+ img .fig3{
   width: 70%;
  }
  
