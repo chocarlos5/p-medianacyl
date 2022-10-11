@@ -1,0 +1,63 @@
+#map { 
+    width: 100%;
+    height: 580px;
+    box-shadow: 5px 5px 5px #888;
+ }
+
+ html,body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ }
+ 
+ h1{
+    color: rgb(90, 1, 1);
+ }
+
+ .page-header{
+    margin-left: 20px;
+    margin-right: 20px;
+ }
+
+ .container-fluid{
+   background-color: rgb(94, 216, 165);
+ }
+ .dropdown-menu{
+   background-color:rgb(150, 235, 200);
+ }
+
+ p.bibitem { text-indent: -2em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
+p.bibitem-p { text-indent: 0em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
+
+.equation td{text-align:center; vertical-align:middle; }
+td.eq-no{ width:5%; }
+table.equation { width:100%; } 
+div.math-display, div.par-math-display{text-align:center;}
+mtr.hline mtd{ border-bottom:black solid 1px; padding-top:2px; padding-bottom:0em; }
+mtr.hline mtd mo{ display:none }
+math .texttt { font-family: monospace; }
+math .textit { font-style: italic; }
+math .textsl { font-style: oblique; }
+math .textsf { font-family: sans-serif; }
+math .textbf { font-weight: bold; }
+mo.MathClass-op + mi{margin-left:0.3em}
+mi + mo.MathClass-op{margin-left:0.3em}
+ math mstyle[mathvariant="bold"] { font-weight: bold; font-style: normal; } 
+ math mstyle[mathvariant="normal"] { font-weight: normal; font-style: normal; } 
+div.tabular, div.center div.tabular {text-align: center; margin-top:0.5em; margin-bottom:0.5em; }
+table.tabular td p{margin-top:0em;}
+table.tabular {margin-left: auto; margin-right: auto;}
+
+.cmti-10x-x-109{ font-style: italic;}
+
+.textSpand{
+    display: inline-block;
+    color: green;
+  }
+.textSpand2{
+    display: inline-block;
+    color:red;
+  }
+
+.textSpand3{
+    display: inline-block;
+    color:rgb(42, 17, 110);
+  }

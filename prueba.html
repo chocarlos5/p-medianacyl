@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <title>Problema de la p-mediana</title>
+  <link rel="stylesheet" type="text/css" href="stylesmap.css" />
+  <!--<link rel="stylesheet" type="text/css" href="main.css" />-->
+  <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#resumen">Problema de la p-mediana</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#intro">Introducción</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Objetivos y métodos
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#obj">Objetivos</a></li>
+              <li><a class="dropdown-item" href="#fundamento">Fundamento teórico</a></li>
+              <li><a class="dropdown-item" href="#recopilacion">Recopilación y tratamiento de datos</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#modelo">Descripción del modelo</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#resultado" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Resultados y conclusiones
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#resultado">Resultados</a></li>
+              <li><a class="dropdown-item" href="#mejora">Mejoras del modelo</a></li>
+              <li><a class="dropdown-item" href="#conclusion">Conclusiones</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#biblio">Bibliografía</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#contacto">Quiénes somos</a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+  <div class="page-header" id="resumen">
+    <h1>Resumen</h1>
+    <p>El problema de la <b>p-mediana</b> es un modelo de optimización matemática que consiste en ubicar <i>p</i>
+      localizaciones de una red de manera que la distancia ponderada entre los puntos de demanda y la instalación
+      abierta más cercana sea mínima. Este proyecto explica su fundamento teórico y expone una aplicación que propone
+      optimizar la distribución de los consultorios de Atención Primaria de Castilla y León. </p>
+  </div>
+  <div class="page-header" id="intro">
+    <h1>Introducción</h1>
+
+    <p>En los últimos años, debido al descenso de la población de Castilla y León y, en particular, de sus zonas
+      rurales, ha surgido un problema de despoblación. Además, el número de médicos en atención primaria se ha visto
+      reducido: en 2017 había 2.900 médicos de familia mientras que en 2021 había 2.465, es decir, 435 profesionales
+      menos en 4 años.<a href="#Xnum_sanitarios">[14]</a></p>
+
+
+    <p>Según los datos del Ministerio de Sanidad, en 2020 (último año del que hay datos publicados) Castilla y León fue
+      la comunidad autónoma que más dinero invirtió en sanidad pública por habitante protegido y la segunda que más
+      porcentaje destinó de este dinero a la Atención Primaria, solo por detrás de Andalucía. Es también la comunidad
+      que tiene una mayor tasa de profesionales de Atención Primaria por cada 1.000 habitantes (1,12 prof./1.000 hab),
+      siendo la única que supera el profesional por cada millar de habitantes. En Atención Especializada es la séptima
+      comunidad con mayor tasa de personal médico por millar de habitantes. A pesar de estos datos, en 2019 tenía la
+      octava mejor valoración de la atención médica entre las comunidades autónomas y quedan numerosas plazas de trabajo
+      sin cubrir.<a href="#Xministerio">[12]</a><a href="#Xnoticia_mundo">[2]</a><a href="#Xnoticia_norte">[1]</a></p>
+
+    <p>Todos estos datos nos inducen a pensar que el sistema sanitario de Castilla y León y, en particular los recursos
+      de Atención Primaria, no están optimizados. Es por esto que vamos a proponer un modelo de distribución de los
+      consultorios y centros de atención primaria de acuerdo a las características particulares de la comunidad.</p>
+
+    <p>Conviene destacar que los municipios de Castilla y León se encuentran muy dispersos por todo el territorio, con
+      las capitales de provincia como principales núcleos de población y numerosas poblaciones, con pocos habitantes en
+      su mayoría, en el resto del territorio. Un acceso óptimo a los recursos sanitarios en todo el territorio
+      favorecerá la recuperación de la ''España Vaciada'' y solventará el problema de personal sanitario que hay en la
+      comunidad.</p>
+
+    <p>El objetivo de este trabajo es proponer una redistribución de los consultorios de atención primaria teniendo en
+      cuenta la distribución de la población en el territorio, las distancias entre los núcleos de población y la actual
+      disposición de los consultorios, mediante un modelo matemático. Además propondremos posibles mejoras de este
+      modelo considerando el tiempo de traslado entre poblaciones (una determinada distancia por carretera de montaña se
+      tarda más en recorrer que por autovía), la frecuentación de los consultorios actuales, la edad de los pacientes
+      (zonas con más ancianos o bebés requerirán mayor atención), la presión asistencial, cercanía a establecimientos
+      farmacéuticos y otros modelos matemáticos que podrían adaptarse a este problema.</p>
+
+    <p>Para realizar este estudio nos centraremos en el problema de la p-mediana: consideraremos la distribución actual
+      de los consultorios como un grafo y buscaremos los nodos que minimizan el ''costo'' de establecer un determinado
+      número de bases que serán los nuevos consultorios. El valor que queramos minimizar será el que consideremos el
+      ''costo'' de la instalación.</p>
+
+    <p>En caso de que quisiéramos reducir el número de consultorios (caso en el que se centra este trabajo), los
+      pacientes de los consultorios que ya no se utilizarían podrían ser tratados en los nuevos consultorios (colocados
+      de forma óptima según el modelo) o atendidos mediante un vehículo medicalizado si así se considerara adecuado. Una
+      reducción adecuada del número de consultorios facilitaría una mayor dotación de material y personal sanitario a
+      los que se establecieran, por lo que la atención mejoraría.</p>
+
+    <p>Para este estudio utilizaremos los datos de consultorios, zonas básicas de salud, frecuentación, presión
+      asistencial, población, tarjetas sanitarias, consultas y establecimientos sanitarios del portal de datos abiertos
+      de la Junta de Castilla y León y del portal de datos abiertos de sanidad de Castilla y León. Los datos
+      comparativos con otras comunidades autónomas han sido extraídos de la aplicación de indicadores claves del Sistema
+      Nacional de Salud del Ministerio de Sanidad, Consumo y Bienestar Social.</p>
+    
+  </div>
+  <div class="page-header" id="obj">
+    <h1>Objetivos</h1>
+
+    <p>
+    <ul>
+      <li>Visibilizar la necesidad de una reforma en el sistema sanitario de Castilla y León.</li>
+      <li>Proponer un modelo matemático para mejorar la gestión de la atención primaria rural en Castilla y León.</li>
+      <li>Proponer una redistribución de los consultorios rurales para una mejor gestión de los recursos y una mejor
+        atención a los pacientes.</li>
+      <li>Analizar posibles mejoras a dicho modelo y proponer otras alternativas.</li>
+      <li>Visibilizar la aplicación de las matemáticas para la resolución de problemas.</li>
+    </ul>
+    </p>
+  </div>
+  <div class="page-header" id="fundamento">
+    <h1>Fundamento teórico</h1>
+
+    
+
+
+    <p>En este apartado vamos a explicar las herramientas matemáticas en las que se basa el modelo que vamos a utilizar
+      para la redistribución de los consultorios rurales.</p>
+
+    <h3>Definiciones</h3>
+
+    <p>Sea <!-- l. 5 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math> un conjunto
+      no vacío y sea <!-- l. 5 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> <mo class='MathClass-punc'>:</mo> <mi>X</mi><mo class='MathClass-rel'>→</mo><mi>ℝ</mi></mrow></math>
+      una función dada. Consideramos el problema de minimización:
+          </p> 
+          <table class='equation'><tr><td>
+            <!-- l. 7 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                                     <mstyle class='label' id='prob1'></mstyle><!-- endlabel --><mi class='qopname'>min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mstyle class='text'><mtext> sujeto a </mtext></mstyle><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>X</mi>
+          </mrow></math></td><td class='eq-no'>(1)</td></tr></table>
+    
+      
+      <p>   La función <!-- l. 11 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>f</mi></math>
+        se denomina función objetivo del problema (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>) y el conjunto
+        <!-- l. 11 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>X</mi></math> es el conjunto
+        factible de (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>). Si <!-- l. 11 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>X</mi> <mo class='MathClass-rel'>=</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup></mrow></math>
+        el problema (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>) es un problema de optimización sin restricciones. En otro caso tenemos un
+        problema de optimización con restricciones.
+        </p> 
+      <p>     También podemos considerar el problema de maximización: </p> 
+      <table class='equation'><tr><td>
+        <!-- l. 14 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                                <mstyle class='label' id='prob2'></mstyle><!-- endlabel --><mi class='qopname'>max</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mstyle class='text'><mtext> sujeto a </mtext></mstyle><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>X</mi>
+      </mrow></math></td><td class='eq-no'>(2)</td></tr></table>
+
+      
+    </p> 
+<div class='newtheorem'>
+<p id='listswap-definicion-x-thtxax-definicion-'><span class='head'>
+<a id='x1-6004r1'></a>
+<span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.1.</b></span>  </span><a id='x1-6005'></a> Un vector <!-- l. 21 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup></mrow></math>
+es factible para (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>) si <!-- l. 21 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>X</mi></mrow></math>.
+    </p> 
+</div>
+<p>
+<a id='x1-6006r2'></a>
+    </p> 
+<div class='newtheorem'>
+<p id='listswap-definicion-x-thtxax-definicion-1'><span class='head'>
+<a id='x1-6007r2'></a>
+<span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.2.</b></span>  </span><a id='x1-6008'></a>                     Un                         vector                         factible
+<!-- l. 25 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></math>
+para         (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>)         es         un         mínimo         global         de         (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>)         si
+<!-- l. 25 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo> <mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mspace class='quad' width='1em'></mspace><mi class='MathClass-op'>∀</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>X</mi></mrow></math>
+                                                                                                   
+
+                                                                                                   
+    </p> 
+</div>
+<p>
+<a id='x1-6009r3'></a>
+    </p> 
+<div class='newtheorem'>
+<p id='listswap-definicion-x-thtxax-definicion-2'><span class='head'>
+<a id='x1-6010r3'></a>
+<span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.3.</b></span>  </span><a id='x1-6011'></a> Un vector factible <!-- l. 29 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></math>
+para (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>) es un mínimo local de (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>) si existe un <!-- l. 29 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>𝜖</mi> <mo class='MathClass-rel'>&gt;</mo> <mn>0</mn></mrow></math>
+tal que <!-- l. 29 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo> <mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mi class='MathClass-op'>∀</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>X</mi> <mo class='MathClass-bin'>∩</mo> <msub><mrow><mi>B</mi></mrow><mrow><mi>𝜖</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>,
+donde <!-- l. 29 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>B</mi></mrow><mrow><mi>𝜖</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-punc'>:</mo><mo class='MathClass-rel'>=</mo> <mo class='MathClass-open' stretchy='false'>{</mo><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class='MathClass-rel'>|</mo><mo class='MathClass-rel'>∥</mo><mi>x</mi> <mo class='MathClass-bin'>−</mo> <msup><mrow><mi>x</mi></mrow><mrow><mi>x</mi><mo class='MathClass-bin'>∗</mo></mrow></msup><mo class='MathClass-rel'>∥</mo> <mo class='MathClass-rel'>&lt;</mo> <mi>𝜖</mi><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math>
+denota la bola euclídea de radio <!-- l. 29 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>𝜖</mi> <mo class='MathClass-rel'>&gt;</mo> <mn>0</mn></mrow></math>
+alrededor del punto <!-- l. 29 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></math>
+    </p> 
+</div>
+<p>
+<a id='x1-6012r4'></a>
+    </p> 
+<div class='newtheorem'>
+<p id='listswap-definicion-x-thtxax-definicion-3'><span class='head'>
+<a id='x1-6013r4'></a>
+<span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.4.</b></span>  </span><a id='x1-6014'></a>                     Un                         vector                         factible
+<!-- l. 33 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></math>
+para       (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>)       es       un       mínimo       global       estricto       de       (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>)       si
+<!-- l. 33 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo> <mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mspace class='quad' width='1em'></mspace><mi class='MathClass-op'>∀</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>X</mi></mrow></math>
+con
+<!-- l. 33 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>x</mi><mo class='MathClass-rel'>≠</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></mrow></math>
+    </p> 
+</div>
+<p>
+<a id='x1-6015r5'></a>
+    </p> 
+<div class='newtheorem'>
+<p id='listswap-definicion-x-thtxax-definicion-4'><span class='head'>
+<a id='x1-6016r5'></a>
+                                                                  
+
+                                                                  
+<span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.5.</b></span>  </span><a id='x1-6017'></a> Un vector factible <!-- l. 37 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></math>
+para (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>) es un mínimo local estricto de (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>) si existe un <!-- l. 37 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>𝜖</mi> <mo class='MathClass-rel'>&gt;</mo> <mn>0</mn></mrow></math>
+tal que <!-- l. 37 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo> <mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mspace class='quad' width='1em'></mspace><mi class='MathClass-op'>∀</mi><mo> ⁡<!-- FUNCTION APPLICATION --></mo><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>X</mi> <mo class='MathClass-bin'>∩</mo> <msub><mrow><mi>B</mi></mrow><mrow><mi>𝜖</mi></mrow></msub><mo class='MathClass-open' stretchy='false'>(</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+con <!-- l. 37 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>x</mi><mo class='MathClass-rel'>≠</mo><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></mrow></math>.
+    </p> 
+</div>
+
+<p>     Análogamente podemos definir máximo local o global (estricto) para el problema de maximización. Como
+  <!-- l. 40 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></math> es un máximo local
+  (global) de (<a href='#prob2'>2<!-- tex4ht:ref: eq:maximiz  --></a>) si y solo si <!-- l. 40 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msup><mrow><mi>x</mi></mrow><mrow><mtext class='MathClass-bin'>∗</mtext></mrow></msup></math>
+  es un mínimo local (global) del problema </p> 
+  <table class='equation'><tr><td>
+    <!-- l. 41 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                           <mstyle class='label' id='x1-6018r3'></mstyle><!-- endlabel --><mi class='qopname'>min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-bin'>−</mo><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mstyle class='text'><mtext> sujeto a </mtext></mstyle><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>X</mi>
+  </mrow></math></td><td class='eq-no'>(3)</td></tr></table>
+  <p>   es suficiente estudiar los problemas de minimización.
+  </p> 
+    
+
+  <p>     Para funciones con <!-- l. 46 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>n</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn></mrow></math>
+    o <!-- l. 46 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>n</mi> <mo class='MathClass-rel'>=</mo> <mn>2</mn></mrow></math> variables
+    es posible encontrar el área del mínimo local o global a través de una representación geométrica. Para
+    funciones con <!-- l. 46 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>n</mi> <mo class='MathClass-rel'>&gt;</mo> <mn>2</mn></mrow></math>
+    variables esto no es posible.
+    </p> 
+  <p>     De forma general el problema de minimización se escribe: </p> 
+  <table class='equation'><tr><td>
+    <!-- l. 49 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                     <mstyle class='label' id='x1-6019r4'></mstyle><!-- endlabel --><mi class='qopname'>min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo><mstyle class='text'><mtext> sujeto a </mtext></mstyle><mi>h</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>=</mo> <mn>0</mn><mo class='MathClass-punc'>,</mo><mi>g</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo> <mn>0</mn>
+  </mrow></math></td><td class='eq-no'>(4)</td></tr></table>
+    <p>   donde <!-- l. 53 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>h</mi><mo class='MathClass-punc'>:</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class='MathClass-rel'>→</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>p</mi></mrow></msup></mrow></math> y
+                                                                                                                       
+
+                                                                                                                       
+      <!-- l. 53 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>g</mi><mo class='MathClass-punc'>:</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class='MathClass-rel'>→</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mi>m</mi></mrow></msup></mrow></math> son funciones dadas
+      y la restricción <!-- l. 53 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>g</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo> <mn>0</mn></mrow></math>
+      viene dada componente a componente. En este caso, el conjunto factible del problema de
+      optimización (<a href='#x1-6019r4'>4<!-- tex4ht:ref: eq:prob_min  --></a>) viene dado por: </p> 
+      <table class='equation'><tr><td>
+        <!-- l. 54 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                          <mstyle class='label' id='x1-6020r5'></mstyle><!-- endlabel --><mo class='MathClass-open' stretchy='false'>X</mo> <mo class='MathClass-punc'>:</mo><mo class='MathClass-rel'>=</mo> <mo class='MathClass-open' stretchy='false'>{</mo><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class='MathClass-rel'>|</mo><mi>h</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>=</mo> <mn>0</mn><mo class='MathClass-punc'>,</mo><mi>g</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo> <mn>0</mn><mo class='MathClass-close' stretchy='false'>}</mo>
+      </mrow></math></td><td class='eq-no'>(5)</td></tr></table>
+
+    <p>   Los problemas de minimización (<a href='#prob1'>1<!-- tex4ht:ref: eq:minimiz  --></a>) o (<a href='#prob2'>2<!-- tex4ht:ref: eq:maximiz  --></a>) representan modelos
+      matemáticos de aplicación en el mundo real. Los componentes del vector
+      <!-- l. 58 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>R</mi></mrow><mrow><mi>n</mi></mrow></msup></mrow></math> son los
+      parámetros del modelo, los cuales proveen ciertos grados de libertad y se eligen de manera óptima
+      de forma que el modelo tenga las propiedades deseadas.
+      </p> 
+    <p>     Los problemas de optimización se pueden clasificar de distinta forma con el objetivo de
+      encontrar un método adecuado para su resolución:
+          </p> 
+          
+          <ul class='itemize1'>
+            <li class='itemize'>
+            <p>Según su interés particular:
+            </p> 
+    <p>(a) Optimización lineal: f, g y h son funciones afines, esto es: </p> 
+    <table class='equation'><tr><td>
+      <!-- l. 67 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                    <mstyle class='label' id='x1-6021r6'></mstyle><!-- endlabel --><mi class='qopname'>min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><msup><mrow><mi>c</mi></mrow><mrow><mi>T</mi> </mrow></msup><mi>x</mi><mstyle class='text'><mtext> sujeto a </mtext></mstyle><mi mathvariant='italic'>Ax</mi> <mo class='MathClass-rel'>=</mo> <mi>b</mi><mo class='MathClass-punc'>,</mo><mi>x</mi> <mo class='MathClass-rel'>≥</mo> <mn>0</mn>
+</mrow></math></td><td class='eq-no'>(6)</td></tr></table>
+            <p>con <!-- l. 70 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>A</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi mathvariant='italic'>pxn</mi></mrow></msup><mo class='MathClass-punc'>,</mo><mi>c</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class='MathClass-punc'>,</mo><mi>b</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>R</mi></mrow><mrow><mi>p</mi></mrow></msup></mrow></math>.
+            </p> 
+    <p>(b) Optimización cuadrática: f es una función cuadrática y g,h son funciones lineales.
+            </p> 
+    <p>(c) Optimización con restricciones lineales: f es una función no linear pero g y h son
+            lineales.
+                                                                                                                           
+    
+                                                                                                                           
+            </p> 
+    <p>(d) Optimización convexa: f,g son funciones convexas y h es linear.
+            </p> 
+    <p>(e) Optimización no linear: f, g y h son funciones no lineares
+            </p> 
+    </li>
+            <li class='itemize'>Según la disponibilidad numérica de las derivadas de f, g y h.
+            </li>
+            <li class='itemize'>Según la derivabilidad de las funciones f, g y h.
+            </li>
+            <li class='itemize'>Según la dimensión del problema.</li></ul>
+      <p>
+          </p> 
+
+
+    <h3>Problema de la p-mediana</h3>
+    <p>El problema de la p-mediana es un modelo básico en la teoría de localización discreta y está clasificado como
+      NP-difícil. Se trata de un problema de optimización lineal entera cuyo objetivo es localizar <i>p</i> instalaciones de
+      manera que se minimice la suma de las distancias ponderadas entre los vértices con demanda y las instalaciones
+      seleccionadas.</p>
+
+      <div class='newtheorem'>
+        <p id='listswap-definicion-x-thtxax-definicion-5'><span class='head'>
+        <a id='x1-7002r6'></a>
+       <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.6.</b></span>  </span><a id='x1-7003'></a> Se llama grafo finito no dirigido a la tupla <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>G</mi> <mo class='MathClass-rel'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mi>V</mi><mo class='MathClass-punc'>,</mo><mi>A</mi><mo class='MathClass-punc'>,</mo><mi>f</mi><mo class='MathClass-punc'>,</mo><mi>p</mi><mo class='MathClass-punc'>,</mo><mi>w</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+        donde <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>V</mi> </mrow></math>
+        es un conjunto no vacío cuyos elementos se denominan vértices, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
+        es un conjunto cuyos elementos se denominan aristas, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> <mo class='MathClass-punc'>:</mo> <mi>A</mi><mo class='MathClass-rel'>→</mo><msup><mrow><mi>S</mi></mrow><mrow><mn>2</mn></mrow></msup><mi>V</mi> </mrow></math>
+        es una aplicación de <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
+        en el conjunto <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msup><mrow><mi>S</mi></mrow><mrow><mn>2</mn></mrow></msup><mi>V</mi> </mrow></math>
+        de parejas no ordenadas de vértices, <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi><mo class='MathClass-punc'>:</mo> <mi>A</mi><mo class='MathClass-rel'>→</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mtext class='MathClass-bin'>+</mtext></mrow></msup></mrow></math>
+        y <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>w</mi><mo class='MathClass-punc'>:</mo> <mi>V</mi> <mo class='MathClass-rel'>→</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mtext class='MathClass-bin'>+</mtext></mrow></msup></mrow></math>
+        son funciones que asignan a cada arista y vértice respectivamente un número real no negativo
+        que llamaremos peso. El peso <!-- l. 94 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>p</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+                                                                                                                                        
+      
+                                                                                                                                        
+        asociado a la arista <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>a</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+        de <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+        representa la longitud del eje; el peso <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>w</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+        asociado al vértice <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+        de <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+        representa la demanda que hay en ese vértice.
+            </p> 
+
+
+
+
+            <div class='newtheorem'>
+              <p id='listswap-definicion-x-thtxax-definicion-6'><span class='head'>
+              <a id='x1-7005r7'></a>
+             <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.7.</b></span>  </span><a id='x1-7006'></a> La distancia de cualesquiera dos puntos <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
+              e <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>y</mi></math>
+              de <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+              se representa por <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-punc'>,</mo><mi>y</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+              y se define como la longitud del camino más corto en <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+              entre <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
+              e <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>y</mi></math>,
+              donde la longitud del camino es la suma de los pesos de las aristas que lo forman.
+                  </p> 
+            </div>
+              <p>    <a id='x1-7007r8'></a>
+                  </p> 
+            <div class='newtheorem'>
+              <p id='listswap-definicion-x-thtxax-definicion-7'><span class='head'>
+              <a id='x1-7008r8'></a>
+             <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.8.</b></span>  </span><a id='x1-7009'></a> La matriz de distancia <!-- l. 104 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>D</mi> <mo class='MathClass-rel'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>d</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+              en el grafo <!-- l. 104 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+              se define como: </p> 
+            <table class='equation'><tr><td>
+                                                                                                                                   
+            
+                                                                                                                                   
+              <!-- l. 105 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+            <mstyle class='label' id='x1-7010r7'></mstyle><!-- endlabel --><msub><mrow><mtext class='MathClass-open' stretchy='false'>d</mtext></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' equalcolumns='false' equalrows='false' style=''> <mtr><mtd class='array' columnalign='center'> <mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mstyle class='text'><mtext>para</mtext></mstyle><mi>i</mi><mo class='MathClass-punc'>,</mo><mi>j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mn>2</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'>n con i</mi><mo class='MathClass-rel'>≠</mo><mi>j</mi> </mtd>
+            </mtr>  <mtr><mtd class='array' columnalign='center'>             <mn>0</mn><mstyle class='text'><mtext> en otro caso </mtext></mstyle>               </mtd></mtr>
+                 <!-- c --></mtable>                                                                                                                 </mrow><mo fence='true' form='postfix'></mo></mrow>
+            </mrow></math></td><td class='eq-no'>(7)</td></tr></table>
+                  </div>
+              <p>
+              <a id='x1-7011r9'></a>
+                  </p> 
+            <div class='newtheorem'>
+              <p id='listswap-definicion-x-thtxax-definicion-8'><span class='head'>
+              <a id='x1-7012r9'></a>
+             <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.9.</b></span>  </span><a id='x1-7013'></a> Un punto <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-rel'>∈</mo> <mi>G</mi></mrow></math>
+              es una mediana absoluta de <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+              si para cada punto <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>G</mi></mrow></math>
+              se tiene que: </p> 
+            <table class='equation'><tr><td>
+              <!-- l. 112 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                             <mstyle class='label' id='x1-7014r8'></mstyle><!-- endlabel --><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+              </mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
+            <mi>i</mi></mrow></msub><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+              </mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
+            <mi>i</mi></mrow></msub><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo>
+            </mrow></math></td><td class='eq-no'>(8)</td></tr></table>
+                  </div>
+    
+                  <div class='newtheorem'>
+                    <p id='listswap-teorema-x-thtxax-teorema-'><span class='head'>
+                    <a id='x1-7016r1'></a>
+                   <span class='cmbx-10x-x-109'><b>Teorema 4.1.</b></span>  </span><a id='x1-7017'></a> <span class='cmti-10x-x-109'>Una mediana absoluta de un grafo siempre est</span>á <span class='cmti-10x-x-109'>en un v</span>é<span class='cmti-10x-x-109'>rtice del mismo.</span>
+                                                                                                                                 
+                  
+                                                                                                                                 
+                        </p> 
+                  </div>
+
+    <p>
+      Se puede expresar el problema de la p-mediana como el problema de optimización:</p>
+      
+      \begin{equation}
+      \operatorname{min} f(S)=\sum_{i=1}^{n}w_{i}d(v_{i},x_{0})~ sujeto~ a~|S|=p, S\subset G
+      \end{equation}
+      <p>   donde <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>S</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-punc'>:</mo><mo class='MathClass-rel'>=</mo><mi class='qopname'> min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>{</mo><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-rel'>|</mo><mi>s</mi> <mo class='MathClass-rel'>∈</mo> <mi>S</mi><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math> es la distancia
+        entre cada vértice <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+        y <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>S</mi></math>.
+        </p> 
+    
+    <p>El matemático iraní-estadounidense Hakimi demostró que la localización óptima de una instalación siempre se
+      encuentra en un vértice del grafo. Según este problema, cada instalación debe estar localizada de manera que la
+      suma de las distancias ponderadas a los vértices que es mínima. Entonces, por el Teorema 3.1 se puede encontrar
+      una configuración óptima de tal manera que cada instalación se localice en un vértice del grafo. Esta propiedad
+      permite expresar el problema de la p-mediana como un problema de optimización lineal entera:</p>
+
+      <math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align' columnalign='left'>
+        <mtr><mtd class='align-odd' columnalign='right'><mstyle class='text'><mtext>min </mtext></mstyle><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi><mo class='MathClass-punc'>,</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>=</mo></mtd>                                  <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+</mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+</mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
+<mi>i</mi></mrow></msub><msub><mrow><mi>d</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><mspace width='2em'></mspace></mtd>                                                                               <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7019r10'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(10)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+        </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><mstyle class='text'><mtext>sujeto a </mtext></mstyle></mtd>                                          <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+</mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>x</mi></mrow><mrow>
+<mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> i</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                          <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7020r11'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(11)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+        </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>                                                     <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+</mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>y</mi></mrow><mrow>
+<mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mi>p</mi><mspace width='2em'></mspace></mtd>                                                                        <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7021r12'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(12)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+        </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><mn>0</mn> <mo class='MathClass-rel'>≤</mo> <msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub></mtd>                                                <mtd class='align-even'> <mo class='MathClass-rel'>≤</mo> <msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> i</mi><mo class='MathClass-punc'>,</mo><mi>j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                                   <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7022r13'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(13)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+        </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>y</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub></mtd>                                                      <mtd class='align-even'> <mo class='MathClass-rel'>∈</mo><mo class='MathClass-open' stretchy='false'>{</mo><mn>0</mn><mo class='MathClass-punc'>,</mo><mn>1</mn><mo class='MathClass-close' stretchy='false'>}</mo><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                                 <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7023r14'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(14)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+</mtd></mtr></mtable></math>
+ 
+
+    <p>donde:</p>
+
+    </p>
+
+    <ul class='itemize1'>
+      <li class='itemize'>
+        <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>d</mi>
+            </mrow>
+            <mrow>
+              <mi mathvariant='italic'>ij</mi>
+            </mrow>
+          </msub>
+        </math>
+        es la distancia entre los vértices
+        <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>v</mi>
+            </mrow>
+            <mrow>
+              <mi>i</mi>
+            </mrow>
+          </msub>
+        </math>
+        y
+        <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>v</mi>
+            </mrow>
+            <mrow>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+        </math>.
+      </li>
+      <li class='itemize'>
+        <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>x</mi>
+            </mrow>
+            <mrow>
+              <mi mathvariant='italic'>ij</mi>
+            </mrow>
+          </msub>
+        </math>
+        es la demanda que surge en el vértice
+        <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>v</mi>
+            </mrow>
+            <mrow>
+              <mi>i</mi>
+            </mrow>
+          </msub>
+        </math>
+        satisfecha por
+        <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>v</mi>
+            </mrow>
+            <mrow>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+        </math>
+        (si existe).
+      </li>
+      <li class='itemize'>
+        <!-- l. 140 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mi>X</mi>
+        </math>
+        es la matriz formada por las variables
+        <!-- l. 140 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>x</mi>
+            </mrow>
+            <mrow>
+              <mi mathvariant='italic'>ij</mi>
+            </mrow>
+          </msub>
+        </math>.
+      </li>
+      <li class='itemize'>
+        <!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>y</mi>
+            </mrow>
+            <mrow>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+        </math>
+        es la variable binaria que decide si un vértice pertenece o no a la p-mediana.
+      </li>
+      <li class='itemize'>
+        <!-- l. 142 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mrow>
+            <mi>Y</mi>
+          </mrow>
+        </math>
+        denota al vector de las variables
+        <!-- l. 142 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>y</mi>
+            </mrow>
+            <mrow>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+        </math>.
+      </li>
+    </ul>
+    <p> La restricción (<a href='#x1-7020r11'>11</a>) significa que la demanda en el vértice
+      <!-- l. 146 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+        <msub>
+          <mrow>
+            <mi>v</mi>
+          </mrow>
+          <mrow>
+            <mi>i</mi>
+          </mrow>
+        </msub>
+      </math> debe
+      ser satisfecha por alguna instalación. La restricción (<a href='#x1-7021r12'>12</a>) asegura que p vértices pertenezcan a la
+      p-mediana. La restricción (<a href='#x1-7022r13'>13</a>) evita la asignación de demanda a un vértice que no se encuentre en
+      la p-mediana y garantiza la no negatividad de la demanda. La restricción (<a href='#x1-7023r14'>14</a>) obliga a
+      <!-- l. 146 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+        <msub>
+          <mrow>
+            <mi>y</mi>
+          </mrow>
+          <mrow>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+      </math> a ser
+      una variable binaria.
+    </p>
+
+    
+
+
+  </div>
+  <div class="page-header" id="recopilacion">
+    <h1>Recopilación y tratamiento de los datos</h1>
+
+    <p>Se han utilizado dos conjuntos de datos, procedentes del portal de datos abiertos y del portal de Salud de de la
+      Junta de Castilla y León:
+    <ul>
+      <li> <a
+          href="https://analisis.datosabiertos.jcyl.es/explore/dataset/dependencia-entre-consultorios-y-centros-de-salud/table/?sort=-gerencia"
+          target="_blank"><span class="textSpand2">Dependencia entre consultorios y centros de salud</span></a> [Descargado el 27 de septiembre de 2022]
+      </li>
+      <li> <a
+          href="https://analisis.datosabiertos.jcyl.es/explore/dataset/actividad-medicina-familia-consultorio/table/?disjunctive.zona_basica_de_salud&disjunctive.area&disjunctive.provincia&sort=fecha"
+          target="_blank"><span class="textSpand2">Actividad de Medicina de Familia a nivel de Consultorio</span></a> [Descargado el 10 de septiembre de
+        2022]</li>
+    </ul>
+    </p>
+    <p>Del primer conjunto de datos hemos obtenido las direcciones de los consultorios (no hemos tenido en cuenta los
+      Centros de Salud), la zona básica a la que están adscritos y la provincia a la que pertenecen; mientras que del
+      segundo conjunto hemos obtenido una media de los pacientes atendidos cada día en cada consultorio y el tipo de
+      consulta que ha sido (presencial, no presencial o a domicilio).</p>
+
+    <p>Tras la recopilación de los datos, se han geolocalizado los consultorios médicos a través de <a
+        href="https://www.google.com/intl/es/earth/about/versions/" target="_blank"><span class="textSpand">Google Earth Pro</span></a>.
+      Tras esto, se ha realizado el filtrado de datos correspondientes a la provincia de Salamanca y se ha calculado en
+      un Jupyter Notebook la matriz de distancias. Para ello, se han convertido las coordenadas geográficas a radianes.
+      Se ha exportado la matriz en formato .csv y, a través de <a href="https://www.rstudio.com/"
+        target="_blank"><span class="textSpand">R-Studio</span></a>, se ha conseguido el archivo .txt final
+      necesario para el modelo.</p>
+
+    <p>Para el cálculo de las distancias se ha utilizado la métrica <i>Haversine</i>, ya que emplea vectores
+      bidimensionales (considerando así la curvatura de la Tierra). En el Apartado <a href="#mejora"><i>Mejoras del
+          modelo</i></a> indicaremos otras
+      distancias que se pueden utilizar para hacer más realista el modelo. La métrica <i>Haversine </i>mide la distancia
+      en ``línea recta'' sobre la superficie de la tierra</p>
+
+    
+
+      <table class='equation'><tr><td>
+                                                                                                                       
+
+                                                                                                                       
+        <!-- l. 17 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                        <mstyle class='label' id='x1-8001r15'></mstyle><!-- endlabel --><mo class='MathClass-open' stretchy='false'>D</mo><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-punc'>,</mo><mi>y</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>=</mo> <mn>2</mn><mi class='qopname'>arcsin</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --> <mrow><mo fence='true' form='prefix'> (</mo><mrow><msqrt><mrow><msup><mrow><mi class='qopname'>sin</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo> <!-- nolimits --> </mrow><mrow><mn>2</mn> </mrow> </msup> <mrow><mo fence='true' form='prefix'> (</mo><mrow><mfrac><mrow><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn> </mrow> </msub> <mo class='MathClass-bin'>−</mo> <msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn> </mrow> </msub> </mrow>
+           <mrow><mn>2</mn></mrow></mfrac>     </mrow><mo fence='true' form='postfix'>)</mo></mrow> <mo class='MathClass-bin'>+</mo><mi class='qopname'> cos</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><msub><mrow><mi>x</mi></mrow><mrow><mn>1</mn></mrow></msub><mi class='qopname'> cos</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><msub><mrow><mi>y</mi></mrow><mrow><mn>1</mn></mrow></msub><mspace class='thickpace' width='0.28em'></mspace><msup><mrow><mi class='qopname'> sin</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --></mrow><mrow><mn>2</mn></mrow></msup> <mrow><mo fence='true' form='prefix'> (</mo><mrow><mfrac><mrow><msub><mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow></msub> <mo class='MathClass-bin'>−</mo> <msub><mrow><mi>y</mi></mrow><mrow><mn>2</mn></mrow></msub></mrow>
+           <mrow><mn>2</mn></mrow></mfrac>     </mrow><mo fence='true' form='postfix'>)</mo></mrow></mrow></msqrt></mrow><mo fence='true' form='postfix'>)</mo></mrow>
+      </mrow></math></td><td class='eq-no'>(15)</td></tr></table>
+
+    <p>La elección de los consultorios médicos de la provincia de Salamanca se ha realizado con el fin de mejorar la
+      comprensión del problema, facilitar el manejo de los datos y poner de manifiesto la distribución de estos dentro
+      del sistema sanitario de Castilla y León. Este sistema está dividido en gerencias de salud, que cuentan con
+      autonomía propia y, dentro de este, la gerencia de Salamanca agrupa a todos los consultorios de la provincia.</p>
+
+  </div>
+  <div class="page-header" id="modelo">
+    <h1>Descripción del modelo</h1>
+
+    <p>Para la realización del modelo se ha utilizado el paquete de software de optimización <b>IBM ILOG CPLEX
+        Optimization Studio</b>, en su versión 22.1.0.0. El modelo desarrollado <b>pmedian.mod</b> puede verse en la
+      Figura <a href="#fig1">1</a> y trata de localizar un número <i>p</i> de consultorios médicos de manera que la distancia
+      entre los núcleos de demanda (consultorios actuales) ponderados con la demanda (número de consultas presenciales
+      actuales) sea mínima. En otras palabras, el modelo abre un consultorio de forma que esté a la menor distancia con
+      respecto al resto de consultorios que le asocia, teniendo en cuenta las consultas que tendrá que atender
+      presencialmente en base a las consultas actuales. De esta forma se consigue reducir los consultorios evitando que
+      los pacientes tengan que recorrer mucha distancia para ser atendidos presencialmente.</p>
+
+    <p>Asimismo, se han creado los ficheros de datos <b>distancias.dat</b> (Figura <a href="#fig3">3</a>) y
+      <b>pmedian.dat</b> (Figura <a href="#fig2">2</a>), que contienen la información relativa a la matriz de
+      distancias, consultorios médicos, la demanda de cada consultorio y el número de instalaciones <i>p</i> que se desea
+      localizar.
+    </p>
+
+    <p>En nuestro caso, los vértices del grafo utilizado y las posibles instalaciones son los consultorios médicos; la
+      demanda utilizada es el número de consultas presenciales en cada consultorio. El número de instalaciones que se
+      desea localizar varía con cada ejecución del modelo y es lo que llamamos <i>p</i>.</p>
+
+    <figure><img id="fig1" src="pmedian.mod.jpg"
+        alt="Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa IBM ILOG CPLEX Optimization Studio"
+        title="Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa IBM ILOG CPLEX Optimization Studio">
+      <figcaption>Figura 1: Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa
+        <b>IBM ILOG CPLEX Optimization Studio</b>
+      </figcaption>
+    </figure>
+
+    <figure><img id="fig2" src="pmedian.dat.jpg" alt="Fichero de datos pmedian.dat"
+        title="Fichero de datos pmedian.dat">
+      <figcaption>Figura 2: Fichero de datos <i>pmedian.dat</i>.</figcaption>
+    </figure>
+
+    <figure><img id="fig3" src="distancias.dat.jpg" alt="Fichero de datos distancias.dat"
+        title="Fichero de datos distancias.dat">
+      <figcaption>Figura 3: Fichero de datos <i>distancias.dat</i>.</figcaption>
+    </figure>
+
+  </div>
+  <div class="page-header" id="resultado">
+    <h1>Resultados</h1>
+
+    <p>Se han realizado diversas ejecuciones del modelo para diferentes valores de <i>p</i>. Tenemos datos de ubicación y
+      consultas de 283 consultorios de la provincia de Salamanca, que son los que hemos utilizado para realizar el
+      modelo.
+      El tiempo de ejecución aproximado ha sido de 2 minutos y 30 segundos, sin diferencias significativas para los
+      distintos valores de <i>p</i>.</p>
+    <ul>
+      <li><b>p=3:</b> Este caso supone una reducción drástica del número de consultorios. Los consultorios
+        proporcionados por el modelo son los consultorios de las localidades de: Fuenteliante, Machacón y
+        Cristóbal. Se puede ver la distribución en el <a href="#map">mapa</a>.
+
+        Como se puede observar, los consultorios obtenidos se sitúan repartidos a lo largo de toda la provincia. Esto
+        era de esperar pues nuestro modelo busca ofrecer una cobertura a todos los consultorios actuales minimizando la
+        distancia que tienen que recorrer los pacientes.</li>
+      <li><b>p=141:</b> Se trata de una reducción del 50% de los consultorios. El listado de los 141 consultorios
+        abiertos se pueden consultar en el <a href="#map">mapa</a>.</li>
+      <li><b>p=250:</b> Implica la reducción de 41 consultorios médicos (seleccionamos aproximadamente el 86% de los
+        consultorios actuales). El listado de los 250 consultorios abiertos se puede consultar en el <a href="#map">mapa</a>.</li>
+    </ul>
+
+    <div id="map"></div>
+
+
+
+  </div>
+  <div class="page-header" id="mejora">
+    <h1>Mejoras del modelo</h1>
+
+    <p>Para la realización de este modelo hemos utilizado los datos disponibles en las bases de datos del portal de
+      Datos Abiertos de la Junta de Castilla y León y de SACYL tras un proceso de depuración.</p>
+
+    <p>Este modelo se podría mejorar considerando otros datos para los parámetros:</p>
+    <ul>
+      <li><b>Distancia:</b>
+        Hemos considerado una distancia en ``línea recta'' sobre la superficie terrestre, sin tener en cuenta la
+        orografía del terreno y las carreteras <a href="#Xcarreteras">[3]</a>. Podríamos considerar como distancia el tiempo que se
+        tarda en desplazarse de un consultorio a otro, o distancias del recorrido por las distintas carreteras teniendo
+        en cuenta el trazado de estas y el tipo de vía.</li>
+      <li><b>Demanda:</b>
+        Hemos considerado como demanda el número de consultas presenciales, pues son las que requieren el desplazamiento
+        de los pacientes al consultorio, pero podríamos haber tenido en cuenta el número de cartillas asociadas a cada
+        consultorio <a href="#Xcartillas">[10]</a>, este mismo dato ponderado por la edad de los pacientes (en general no todos los
+        grupos de edad acuden al médico con la misma frecuencia) <a href="#Xciudadanos">[7]</a>, o la presión asistencial
+        <a href="#Xpresion">[8]</a>.</li>
+      <li><b>Consultorios candidatos:</b>
+        Hemos tenido en cuenta todos los consultorios de Salamanca sin considerar los centros de salud. Para este modelo
+        podríamos haber reducido el número de candidatos a nuevos consultorios tras un análisis de aquellos que tienen
+        mejores instalaciones y mejores recursos, o aquellos que cuenten con una farmacia en la misma localidad.
+        <a href="#Xfarmacias">[8]</a></li>
+      <li><b>Modelo:</b>
+        Hemos utilizado el modelo de la p-mediana. También se podría realizar la modelización de otros problemas como el
+        problema del p-centro, que minimiza las distancias entre las instalaciones y el nodo de demanda situado a mayor
+        distancia, o el problema de máxima cobertura, que maximiza la cobertura sobre la demanda de una población con
+        recursos limitados.</li>
+
+    </ul>
+  </div>
+  <div class="page-header" id="conclusion">
+    <h1>Conclusiones</h1>
+
+    <p>Tras aplicar el modelo la <b>p-mediana</b> a nuestro problema hemos obtenido una distribución de consultorios que
+      optimiza la distancia que tienen que recorrer los pacientes para ser atendidos y supone una reducción de costes al
+      disminuir el número de instalaciones, con lo que se puede invertir este dinero en mejorar los consultorios que
+      seguirían prestando servicios. Además solucionaríamos el problema de la falta de profesionales sanitarios en la
+      Atención Primaria.</p>
+
+    <p>Esta propuesta no busca que la calidad de los servicios de salud en las localidades que no tengan consultorio
+      empeore, sino que sugerimos que los pacientes sean visitados por un vehículo medicalizado con una dotación de
+      material y personal adecuada. De esta forma la atención podría ser mejor ya que en algunos consultorios ahora
+      mismo no se atiende a los pacientes presencialmente todos los días. Además, el aumento de las consultas no
+      presenciales tras la pandemia de Covid-19 favorece la implantación de este modelo, puesto que muchas gestiones se
+      pueden realizar de forma telemática.</p>
+
+    <p> Un adecuado tratamiento de los datos favorece la toma de decisiones y la modelización de estos a través de
+      modelos matemáticos facilita este proceso. Aun así, es indispensable contar con el trabajo de personal sanitario,
+      gerentes, ingenieros, matemáticos y políticos, expertos cada uno en su campo y conscientes de los problemas
+      específicos, para elaborar un modelo que permita obtener una solución adecuada al problema de la Atención Primaria
+      de Castilla y León. El trabajo en equipo e interdisciplinar es imprescindible en la elección de datos y parámetros
+      correctos. El número de consultorios a establecer se ha de determinar con un estudio más exhaustivo del personal
+      disponible, las características sociales y geográficas de la comunidad, y el material y las instalaciones
+      existentes.</p>
+
+    <p>Este trabajo pone de manifiesto la utilidad de las matemáticas en problemas reales y destaca el valor económico y
+      social de los datos abiertos.</p>
+  </div>
+  <div class="page-header" id="biblio">
+    <h1>Bibliografía</h1>
+    <div class='thebibliography'>
+      <p class='bibitem'><span class='biblabel'>
+          [1]<span class='bibsp'>   </span></span><a id='Xnoticia_norte'></a>El Norte de Castilla, <span
+          class='cmti-10x-x-109'>La zona de Salda</span>ñ<span class='cmti-10x-x-109'>a perder</span>á <span
+          class='cmti-10x-x-109'>cuatro de los doce m</span>é<span class='cmti-10x-x-109'>dicos de
+        </span><span class='cmti-10x-x-109'>plantilla</span>, <a class='url'
+          href='https:/www.elnortedecastilla.es/palencia/zona-saldana-perdera-20220922234139-nt.html'><span
+            class='cmtt-10x-x-109'>https:/www.elnortedecastilla.es/palencia/zona-saldana-perdera-20220922234139-nt.html</span></a>,
+        sep 2022, [Visitado el 3 de octubre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [2]<span class='bibsp'>   </span></span><a id='Xnoticia_mundo'></a>El Mundo. Diario de Castilla y León, <span
+          class='cmti-10x-x-109'>El d</span>é<span class='cmti-10x-x-109'>ficit de m</span>é<span
+          class='cmti-10x-x-109'>dicos de
+        </span><span class='cmti-10x-x-109'>familia alcanza las 314 plazas sin cubrir en Castilla y Le</span>ó<span
+          class='cmti-10x-x-109'>n</span>,
+        <a class='url'
+          href='https:/diariodecastillayleon.elmundo.es/articulo/castilla-y-leon/deficit-medicos-familia-alcanza-314-plazas-cubrir-castilla-leon/20211212192659037816.html'><span
+            class='cmtt-10x-x-109'>https:/diariodecastillayleon.elmundo.es/articulo/castilla-y-leon/deficit-medicos-familia-alcanza-314-plazas-cubrir-castilla-leon/20211212192659037816.html</span></a>,
+        dec 2021, [Visitado el 18 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [3]<span class='bibsp'>   </span></span><a id='Xcarreteras'></a>Junta de Castilla y León, <span
+          class='cmti-10x-x-109'>Cat</span>á<span class='cmti-10x-x-109'>logo de la red regional de carreteras
+          (tramificada).</span>,
+        <a class='url'
+          href='https:/analisis.datosabiertos.jcyl.es/explore/dataset/catalogo-de-la-red-regional-de-carreteras-tramificada/table/'><span
+            class='cmtt-10x-x-109'>https:/analisis.datosabiertos.jcyl.es/explore/dataset/catalogo-de-la-red-regional-de-carreteras-tramificada/table/</span></a>,
+        sep 2022, [Visitado el 30 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [4]<span class='bibsp'>   </span></span><a id='XIBM'></a>IBM, <span
+          class='cmti-10x-x-109'>Documentaci</span>ó<span class='cmti-10x-x-109'>n de IBM ILOG CPLEX Optimization Studio
+          V22.1.0</span>,
+        <a class='url'
+          href='https://www.ibm.com/docs/es/icos/22.1.0?topic=SSSA5P_22.1.0/ilog.odms.studio.help/Optimization_Studio/topics/COS_home.html'><span
+            class='cmtt-10x-x-109'>https://www.ibm.com/docs/es/icos/22.1.0?topic=SSSA5P_22.1.0/ilog.odms.studio.help/Optimization_Studio/topics/COS_home.html</span></a>,
+        sep 2022, [Visitado el 27 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [5]<span class='bibsp'>   </span></span><a id='XCPLEX_pmedian'></a>IBM, <span class='cmti-10x-x-109'>Modelo
+          p-mediana</span>, <a class='url'
+          href='https:/www.ibm.com/docs/es/icos/20.1.0?topic=SSSA5P_20.1.0/ilog.odms.ide.help/examples/html/opl/pmedian/pmedian.mod.html'><span
+            class='cmtt-10x-x-109'>https:/www.ibm.com/docs/es/icos/20.1.0?topic=SSSA5P_20.1.0/ilog.odms.ide.help/examples/html/opl/pmedian/pmedian.mod.html</span></a>,
+        sep 2022, [Visitado el 27 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [6]<span class='bibsp'>   </span></span><a id='Xtfg'></a>Sofía Led Jiménez, <span
+          class='cmti-10x-x-109'>Problemas de la p-mediana. Aplicaci</span>ó<span class='cmti-10x-x-109'>n</span>,
+        Trabajo de fin de grado
+        en matemáticas, Universidad de Zaragoza, jul 2018.
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [7]<span class='bibsp'>   </span></span><a id='Xciudadanos'></a>Junta de Castilla y León, <span
+          class='cmti-10x-x-109'>Ciudadanos con derecho a la asistencia sanitaria.</span>,
+        <a class='url'
+          href='https:/datosabiertos.jcyl.es/web/jcyl/set/es/salud/poblacion-referencia/1285114749493'><span
+            class='cmtt-10x-x-109'>https:/datosabiertos.jcyl.es/web/jcyl/set/es/salud/poblacion-referencia/1285114749493</span></a>,
+        sep 2022, [Visitado el 30 de septiembre de 2022].
+
+
+
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [8]<span class='bibsp'>   </span></span><a id='Xpresion'></a>Junta de Castilla y León, <span
+          class='cmti-10x-x-109'>Pacientes diarios en consulta ordinaria.</span>,
+        <a class='url'
+          href='https:/analisis.datosabiertos.jcyl.es/explore/dataset/presion-asistencial-mf-pediatria-y-enfermeria-zbs/table/'><span
+            class='cmtt-10x-x-109'>https:/analisis.datosabiertos.jcyl.es/explore/dataset/presion-asistencial-mf-pediatria-y-enfermeria-zbs/table/</span></a>,
+        sep 2022, [Visitado el 30 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [9]<span class='bibsp'>   </span></span><a id='Xfarmacias'></a>Junta de Castilla y León, <span
+          class='cmti-10x-x-109'>Registro de establecimientos farmac</span>é<span class='cmti-10x-x-109'>uticos de
+          Castilla y
+        </span><span class='cmti-10x-x-109'>Le</span>ó<span class='cmti-10x-x-109'>n.</span>, <a class='url'
+          href='https://analisis.datosabiertos.jcyl.es/explore/dataset/registro-de-establecimientos-farmaceuticos-de-castilla-y-leon/table/?disjunctive.nombre_comercial&amp;disjunctive.localidad&amp;disjunctive.municipio'><span
+            class='cmtt-10x-x-109'>https://analisis.datosabiertos.jcyl.es/explore/dataset/registro-de-establecimientos-farmaceuticos-de-castilla-y-leon/table/?disjunctive.nombre_comercial&amp;disjunctive.localidad&amp;disjunctive.municipio</span></a>,
+        sep 2022, [Visitado el 30 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [10]<span class='bibsp'>   </span></span><a id='Xcartillas'></a>Junta de Castilla y León, <span
+          class='cmti-10x-x-109'>Tarjetas sanitarias por profesional y zona b</span>á<span class='cmti-10x-x-109'>sica
+          de salud.</span>,
+        <a class='url' href='https:/analisis.datosabiertos.jcyl.es/explore/dataset/tsi-por-profesional/table/'><span
+            class='cmtt-10x-x-109'>https:/analisis.datosabiertos.jcyl.es/explore/dataset/tsi-por-profesional/table/</span></a>,
+        sep 2022, [Visitado el 30 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [11]<span class='bibsp'>   </span></span><a id='Xmatriz_distancias'></a>Bryan Salazar López, <span
+          class='cmti-10x-x-109'>¿C</span>ó<span class='cmti-10x-x-109'>mo calcular una matriz de distancias para
+          modelar un
+        </span><span class='cmti-10x-x-109'>VRP?</span>, <a class='url'
+          href='https://www.ingenieriaindustrialonline.com/investigacion-de-operaciones/como-calcular-una-matriz-de-distancias-para-modelar-un-vrp/'><span
+            class='cmtt-10x-x-109'>https://www.ingenieriaindustrialonline.com/investigacion-de-operaciones/como-calcular-una-matriz-de-distancias-para-modelar-un-vrp/</span></a>,
+        sep 2022, [Visitado el 21 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [12]<span class='bibsp'>   </span></span><a id='Xministerio'></a>Consumo y Bienestar Social Ministerio de
+        Sanidad,
+        <span class='cmti-10x-x-109'>Indicadores clave del Sistema Nacional de Salud</span>,
+        <a class='url' href='http:/inclasns.msssi.es/main.html?permalink=91ecb5290f0b60173bf7b6faaf35cc96'><span
+            class='cmtt-10x-x-109'>http:/inclasns.msssi.es/main.html?permalink=91ecb5290f0b60173bf7b6faaf35cc96</span></a>,
+        sep 2022, [Visitado el 18 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [13]<span class='bibsp'>   </span></span><a id='Xorganizacion'></a>SACYL, <span
+          class='cmti-10x-x-109'>Gu</span>í<span class='cmti-10x-x-109'>a de ordenaci</span>ó<span
+          class='cmti-10x-x-109'>n sanitaria de Castilla y Le</span>ó<span class='cmti-10x-x-109'>n en el </span>Á<span
+          class='cmti-10x-x-109'>rea de Salud de
+        </span><span class='cmti-10x-x-109'>Salamanca</span>, <a class='url'
+          href='https:/www.saludcastillayleon.es/institucion/es/organizacion/ordenacion-sistema-sanitario/guia-ordenacion-sanitaria-castilla-leon/area-salud-salamanca.ficheros/77569-Salamanca.pdf'><span
+            class='cmtt-10x-x-109'>https:/www.saludcastillayleon.es/institucion/es/organizacion/ordenacion-sistema-sanitario/guia-ordenacion-sanitaria-castilla-leon/area-salud-salamanca.ficheros/77569-Salamanca.pdf</span></a>,
+        sep 2022, [Visitado el 27 de septiembre de 2022].
+      </p>
+      <p class='bibitem'><span class='biblabel'>
+          [14]<span class='bibsp'>   </span></span><a id='Xnum_sanitarios'></a>SACYL, <span
+          class='cmti-10x-x-109'>Informes estad</span>í<span class='cmti-10x-x-109'>sticos de los Recursos Sanitarios
+          P</span>ú<span class='cmti-10x-x-109'>blicos. Ficheros por a</span>ñ<span class='cmti-10x-x-109'>o.</span>,
+        <a class='url'
+          href='https:/www.saludcastillayleon.es/transparencia/es/transparencia/sanidad-cifras/informes-estadisticos/ordenacion-alfabetica/recursos-sanitarios-publicos'><span
+            class='cmtt-10x-x-109'>https:/www.saludcastillayleon.es/transparencia/es/transparencia/sanidad-cifras/informes-estadisticos/ordenacion-alfabetica/recursos-sanitarios-publicos</span></a>,
+        sep 2022, [Visitado el 18 de septiembre de 2022].
+      </p>
+    </div>
+  </div>
+  <div class="page-header" id="contacto">
+    <h1>Quiénes somos</h1>
+    <p>
+    <div id="vinc">El proyecto ha sido realizado por <span class="textSpand3">Ernesto Ramos Pérez</span> y <a href="https://about.me/cmonteropascual"
+        target="_blank"><span class="textSpand3">Carlos Montero Pascual</span></a>, estudiantes del doble grado en Física y Matemáticas y grado en
+      Matemáticas por la Universidad de Salamanca, respectivamente.</div>
+
+
+
+
+
+    </p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin="">
+    </script>
+  <script src="marcador.png"></script>
+  <script src="marcador2.png"></script>
+  <script src="marcador3.png"></script>
+  <script src="marcador4.png"></script>
+  <script type="text/javascript" src="p3.js"></script>
+  <script type="text/javascript" src="p141.js"></script>
+  <script type="text/javascript" src="p250.js"></script>
+  <script type="text/javascript" src="mapa_salamanca.js"></script>
+  <script type="text/javascript" src="map.js"></script>
+</body>
+
+</html>
