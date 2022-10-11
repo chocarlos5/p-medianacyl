@@ -38,7 +38,7 @@
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            <a class="nav-link dropdown-toggle" href="#obj" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               Objetivos y métodos
             </a>
@@ -74,6 +74,9 @@
       </div>
     </div>
   </nav>
+  <div>
+    
+  </div>
   <div class="page-header" id="resumen">
     <h1>Resumen</h1>
     <p>El problema de la <b>p-mediana</b> es un modelo de optimización matemática que consiste en ubicar <i>p</i>
@@ -302,309 +305,312 @@ con <!-- l. 37 --><math display='inline' xmlns='http://www.w3.org/1998/Math/Math
             <p>Según su interés particular:
             </p> 
     <p>(a) Optimización lineal: f, g y h son funciones afines, esto es: </p> 
-    <table class='equation'><tr><td>
-      <!-- l. 67 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
-                                    <mstyle class='label' id='x1-6021r6'></mstyle><!-- endlabel --><mi class='qopname'>min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><msup><mrow><mi>c</mi></mrow><mrow><mi>T</mi> </mrow></msup><mi>x</mi><mstyle class='text'><mtext> sujeto a </mtext></mstyle><mi mathvariant='italic'>Ax</mi> <mo class='MathClass-rel'>=</mo> <mi>b</mi><mo class='MathClass-punc'>,</mo><mi>x</mi> <mo class='MathClass-rel'>≥</mo> <mn>0</mn>
-</mrow></math></td><td class='eq-no'>(6)</td></tr></table>
-            <p>con <!-- l. 70 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>A</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi mathvariant='italic'>pxn</mi></mrow></msup><mo class='MathClass-punc'>,</mo><mi>c</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class='MathClass-punc'>,</mo><mi>b</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>R</mi></mrow><mrow><mi>p</mi></mrow></msup></mrow></math>.
-            </p> 
-    <p>(b) Optimización cuadrática: f es una función cuadrática y g,h son funciones lineales.
-            </p> 
-    <p>(c) Optimización con restricciones lineales: f es una función no linear pero g y h son
-            lineales.
-                                                                                                                           
-    
-                                                                                                                           
-            </p> 
-    <p>(d) Optimización convexa: f,g son funciones convexas y h es linear.
-            </p> 
-    <p>(e) Optimización no linear: f, g y h son funciones no lineares
-            </p> 
-    </li>
-            <li class='itemize'>Según la disponibilidad numérica de las derivadas de f, g y h.
-            </li>
-            <li class='itemize'>Según la derivabilidad de las funciones f, g y h.
-            </li>
-            <li class='itemize'>Según la dimensión del problema.</li></ul>
-      <p>
-          </p> 
-
-
-    <h3>Problema de la p-mediana</h3>
-    <p>El problema de la p-mediana es un modelo básico en la teoría de localización discreta y está clasificado como
-      NP-difícil. Se trata de un problema de optimización lineal entera cuyo objetivo es localizar <i>p</i> instalaciones de
-      manera que se minimice la suma de las distancias ponderadas entre los vértices con demanda y las instalaciones
-      seleccionadas.</p>
-
-      <div class='newtheorem'>
-        <p id='listswap-definicion-x-thtxax-definicion-5'><span class='head'>
-        <a id='x1-7002r6'></a>
-       <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.6.</b></span>  </span><a id='x1-7003'></a> Se llama grafo finito no dirigido a la tupla <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>G</mi> <mo class='MathClass-rel'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mi>V</mi><mo class='MathClass-punc'>,</mo><mi>A</mi><mo class='MathClass-punc'>,</mo><mi>f</mi><mo class='MathClass-punc'>,</mo><mi>p</mi><mo class='MathClass-punc'>,</mo><mi>w</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
-        donde <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>V</mi> </mrow></math>
-        es un conjunto no vacío cuyos elementos se denominan vértices, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
-        es un conjunto cuyos elementos se denominan aristas, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> <mo class='MathClass-punc'>:</mo> <mi>A</mi><mo class='MathClass-rel'>→</mo><msup><mrow><mi>S</mi></mrow><mrow><mn>2</mn></mrow></msup><mi>V</mi> </mrow></math>
-        es una aplicación de <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
-        en el conjunto <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msup><mrow><mi>S</mi></mrow><mrow><mn>2</mn></mrow></msup><mi>V</mi> </mrow></math>
-        de parejas no ordenadas de vértices, <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi><mo class='MathClass-punc'>:</mo> <mi>A</mi><mo class='MathClass-rel'>→</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mtext class='MathClass-bin'>+</mtext></mrow></msup></mrow></math>
-        y <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>w</mi><mo class='MathClass-punc'>:</mo> <mi>V</mi> <mo class='MathClass-rel'>→</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mtext class='MathClass-bin'>+</mtext></mrow></msup></mrow></math>
-        son funciones que asignan a cada arista y vértice respectivamente un número real no negativo
-        que llamaremos peso. El peso <!-- l. 94 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>p</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
-                                                                                                                                        
-      
-                                                                                                                                        
-        asociado a la arista <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>a</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
-        de <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
-        representa la longitud del eje; el peso <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>w</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
-        asociado al vértice <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
-        de <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
-        representa la demanda que hay en ese vértice.
-            </p> 
-
-
-
-
-            <div class='newtheorem'>
-              <p id='listswap-definicion-x-thtxax-definicion-6'><span class='head'>
-              <a id='x1-7005r7'></a>
-             <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.7.</b></span>  </span><a id='x1-7006'></a> La distancia de cualesquiera dos puntos <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
-              e <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>y</mi></math>
-              de <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
-              se representa por <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-punc'>,</mo><mi>y</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
-              y se define como la longitud del camino más corto en <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
-              entre <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
-              e <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>y</mi></math>,
-              donde la longitud del camino es la suma de los pesos de las aristas que lo forman.
-                  </p> 
-            </div>
-              <p>    <a id='x1-7007r8'></a>
-                  </p> 
-            <div class='newtheorem'>
-              <p id='listswap-definicion-x-thtxax-definicion-7'><span class='head'>
-              <a id='x1-7008r8'></a>
-             <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.8.</b></span>  </span><a id='x1-7009'></a> La matriz de distancia <!-- l. 104 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>D</mi> <mo class='MathClass-rel'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>d</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
-              en el grafo <!-- l. 104 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
-              se define como: </p> 
-            <table class='equation'><tr><td>
-                                                                                                                                   
-            
-                                                                                                                                   
-              <!-- l. 105 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
-            <mstyle class='label' id='x1-7010r7'></mstyle><!-- endlabel --><msub><mrow><mtext class='MathClass-open' stretchy='false'>d</mtext></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' equalcolumns='false' equalrows='false' style=''> <mtr><mtd class='array' columnalign='center'> <mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mstyle class='text'><mtext>para</mtext></mstyle><mi>i</mi><mo class='MathClass-punc'>,</mo><mi>j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mn>2</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'>n con i</mi><mo class='MathClass-rel'>≠</mo><mi>j</mi> </mtd>
-            </mtr>  <mtr><mtd class='array' columnalign='center'>             <mn>0</mn><mstyle class='text'><mtext> en otro caso </mtext></mstyle>               </mtd></mtr>
-                 <!-- c --></mtable>                                                                                                                 </mrow><mo fence='true' form='postfix'></mo></mrow>
-            </mrow></math></td><td class='eq-no'>(7)</td></tr></table>
-                  </div>
-              <p>
-              <a id='x1-7011r9'></a>
-                  </p> 
-            <div class='newtheorem'>
-              <p id='listswap-definicion-x-thtxax-definicion-8'><span class='head'>
-              <a id='x1-7012r9'></a>
-             <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.9.</b></span>  </span><a id='x1-7013'></a> Un punto <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-rel'>∈</mo> <mi>G</mi></mrow></math>
-              es una mediana absoluta de <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
-              si para cada punto <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>G</mi></mrow></math>
-              se tiene que: </p> 
-            <table class='equation'><tr><td>
-              <!-- l. 112 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
-                                             <mstyle class='label' id='x1-7014r8'></mstyle><!-- endlabel --><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
-              </mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
-            <mi>i</mi></mrow></msub><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
-              </mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
-            <mi>i</mi></mrow></msub><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo>
-            </mrow></math></td><td class='eq-no'>(8)</td></tr></table>
-                  </div>
-    
-                  <div class='newtheorem'>
-                    <p id='listswap-teorema-x-thtxax-teorema-'><span class='head'>
-                    <a id='x1-7016r1'></a>
-                   <span class='cmbx-10x-x-109'><b>Teorema 4.1.</b></span>  </span><a id='x1-7017'></a> <span class='cmti-10x-x-109'>Una mediana absoluta de un grafo siempre est</span>á <span class='cmti-10x-x-109'>en un v</span>é<span class='cmti-10x-x-109'>rtice del mismo.</span>
-                                                                                                                                 
-                  
-                                                                                                                                 
-                        </p> 
-                  </div>
-
     <p>
-      Se puede expresar el problema de la p-mediana como el problema de optimización:</p>
+      <table class='equation'><tr><td>
+        <!-- l. 67 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                      <mstyle class='label' id='x1-6021r6'></mstyle><!-- endlabel --><mi class='qopname'>min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><msup><mrow><mi>c</mi></mrow><mrow><mi>T</mi> </mrow></msup><mi>x</mi><mstyle class='text'><mtext> sujeto a </mtext></mstyle><mi mathvariant='italic'>Ax</mi> <mo class='MathClass-rel'>=</mo> <mi>b</mi><mo class='MathClass-punc'>,</mo><mi>x</mi> <mo class='MathClass-rel'>≥</mo> <mn>0</mn>
+  </mrow></math></td><td class='eq-no'>(6)</td></tr></table>
+              <p>con <!-- l. 70 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>A</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi mathvariant='italic'>pxn</mi></mrow></msup><mo class='MathClass-punc'>,</mo><mi>c</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>ℝ</mi></mrow><mrow><mi>n</mi></mrow></msup><mo class='MathClass-punc'>,</mo><mi>b</mi> <mo class='MathClass-rel'>∈</mo> <msup><mrow><mi>R</mi></mrow><mrow><mi>p</mi></mrow></msup></mrow></math>.
+              </p> 
+      <p>(b) Optimización cuadrática: f es una función cuadrática y g,h son funciones lineales.
+              </p> 
+      <p>(c) Optimización con restricciones lineales: f es una función no linear pero g y h son
+              lineales.
+                                                                                                                             
       
-      \begin{equation}
-      \operatorname{min} f(S)=\sum_{i=1}^{n}w_{i}d(v_{i},x_{0})~ sujeto~ a~|S|=p, S\subset G
-      \end{equation}
-      <p>   donde <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>S</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-punc'>:</mo><mo class='MathClass-rel'>=</mo><mi class='qopname'> min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>{</mo><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-rel'>|</mo><mi>s</mi> <mo class='MathClass-rel'>∈</mo> <mi>S</mi><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math> es la distancia
-        entre cada vértice <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
-        y <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>S</mi></math>.
-        </p> 
+                                                                                                                             
+              </p> 
+      <p>(d) Optimización convexa: f,g son funciones convexas y h es linear.
+              </p> 
+      <p>(e) Optimización no linear: f, g y h son funciones no lineares
+              </p> 
+      </li>
+              <li class='itemize'>Según la disponibilidad numérica de las derivadas de f, g y h.
+              </li>
+              <li class='itemize'>Según la derivabilidad de las funciones f, g y h.
+              </li>
+              <li class='itemize'>Según la dimensión del problema.</li></ul>
+        <p>
+            </p> 
+  
+  
+      <h3>Problema de la p-mediana</h3>
+      <p>El problema de la p-mediana es un modelo básico en la teoría de localización discreta y está clasificado como
+        NP-difícil. Se trata de un problema de optimización lineal entera cuyo objetivo es localizar <i>p</i> instalaciones de
+        manera que se minimice la suma de las distancias ponderadas entre los vértices con demanda y las instalaciones
+        seleccionadas.</p>
+  
+        <div class='newtheorem'>
+          <p id='listswap-definicion-x-thtxax-definicion-5'><span class='head'>
+          <a id='x1-7002r6'></a>
+         <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.6.</b></span>  </span><a id='x1-7003'></a> Se llama grafo finito no dirigido a la tupla <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>G</mi> <mo class='MathClass-rel'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><mi>V</mi><mo class='MathClass-punc'>,</mo><mi>A</mi><mo class='MathClass-punc'>,</mo><mi>f</mi><mo class='MathClass-punc'>,</mo><mi>p</mi><mo class='MathClass-punc'>,</mo><mi>w</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+          donde <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>V</mi> </mrow></math>
+          es un conjunto no vacío cuyos elementos se denominan vértices, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
+          es un conjunto cuyos elementos se denominan aristas, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>f</mi> <mo class='MathClass-punc'>:</mo> <mi>A</mi><mo class='MathClass-rel'>→</mo><msup><mrow><mi>S</mi></mrow><mrow><mn>2</mn></mrow></msup><mi>V</mi> </mrow></math>
+          es una aplicación de <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>A</mi></math>
+          en el conjunto <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msup><mrow><mi>S</mi></mrow><mrow><mn>2</mn></mrow></msup><mi>V</mi> </mrow></math>
+          de parejas no ordenadas de vértices, <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>p</mi><mo class='MathClass-punc'>:</mo> <mi>A</mi><mo class='MathClass-rel'>→</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mtext class='MathClass-bin'>+</mtext></mrow></msup></mrow></math>
+          y <!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>w</mi><mo class='MathClass-punc'>:</mo> <mi>V</mi> <mo class='MathClass-rel'>→</mo><msup><mrow><mi>ℝ</mi></mrow><mrow><mtext class='MathClass-bin'>+</mtext></mrow></msup></mrow></math>
+          son funciones que asignan a cada arista y vértice respectivamente un número real no negativo
+          que llamaremos peso. El peso <!-- l. 94 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>p</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+                                                                                                                                          
+        
+                                                                                                                                          
+          asociado a la arista <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>a</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+          de <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+          representa la longitud del eje; el peso <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>w</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+          asociado al vértice <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+          de <!-- l. 95 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+          representa la demanda que hay en ese vértice.
+              </p> 
+  
+  
+  
+  
+              <div class='newtheorem'>
+                <p id='listswap-definicion-x-thtxax-definicion-6'><span class='head'>
+                <a id='x1-7005r7'></a>
+               <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.7.</b></span>  </span><a id='x1-7006'></a> La distancia de cualesquiera dos puntos <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
+                e <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>y</mi></math>
+                de <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+                se representa por <!-- l. 99 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>x</mi><mo class='MathClass-punc'>,</mo><mi>y</mi><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+                y se define como la longitud del camino más corto en <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+                entre <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>x</mi></math>
+                e <!-- l. 100 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>y</mi></math>,
+                donde la longitud del camino es la suma de los pesos de las aristas que lo forman.
+                    </p> 
+              </div>
+                <p>    <a id='x1-7007r8'></a>
+                    </p> 
+              <div class='newtheorem'>
+                <p id='listswap-definicion-x-thtxax-definicion-7'><span class='head'>
+                <a id='x1-7008r8'></a>
+               <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.8.</b></span>  </span><a id='x1-7009'></a> La matriz de distancia <!-- l. 104 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>D</mi> <mo class='MathClass-rel'>=</mo> <mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>d</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo></mrow></math>
+                en el grafo <!-- l. 104 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+                se define como: </p> 
+              <table class='equation'><tr><td>
+                                                                                                                                     
+              
+                                                                                                                                     
+                <!-- l. 105 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+              <mstyle class='label' id='x1-7010r7'></mstyle><!-- endlabel --><msub><mrow><mtext class='MathClass-open' stretchy='false'>d</mtext></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mrow><mo fence='true' form='prefix'> {</mo><mrow> <mtable align='axis' class='array' equalcolumns='false' equalrows='false' style=''> <mtr><mtd class='array' columnalign='center'> <mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo><mstyle class='text'><mtext>para</mtext></mstyle><mi>i</mi><mo class='MathClass-punc'>,</mo><mi>j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mn>2</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'>n con i</mi><mo class='MathClass-rel'>≠</mo><mi>j</mi> </mtd>
+              </mtr>  <mtr><mtd class='array' columnalign='center'>             <mn>0</mn><mstyle class='text'><mtext> en otro caso </mtext></mstyle>               </mtd></mtr>
+                   <!-- c --></mtable>                                                                                                                 </mrow><mo fence='true' form='postfix'></mo></mrow>
+              </mrow></math></td><td class='eq-no'>(7)</td></tr></table>
+                    </div>
+                <p>
+                <a id='x1-7011r9'></a>
+                    </p> 
+              <div class='newtheorem'>
+                <p id='listswap-definicion-x-thtxax-definicion-8'><span class='head'>
+                <a id='x1-7012r9'></a>
+               <span class='cmbx-10x-x-109'><b>Definici</span>ó<span class='cmbx-10x-x-109'>n 4.9.</b></span>  </span><a id='x1-7013'></a> Un punto <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub> <mo class='MathClass-rel'>∈</mo> <mi>G</mi></mrow></math>
+                es una mediana absoluta de <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>G</mi></math>
+                si para cada punto <!-- l. 111 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>x</mi> <mo class='MathClass-rel'>∈</mo> <mi>G</mi></mrow></math>
+                se tiene que: </p> 
+              <table class='equation'><tr><td>
+                <!-- l. 112 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mrow>
+                                               <mstyle class='label' id='x1-7014r8'></mstyle><!-- endlabel --><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+                </mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
+              <mi>i</mi></mrow></msub><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><msub><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msub><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>≤</mo><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+                </mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
+              <mi>i</mi></mrow></msub><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>x</mi><mo class='MathClass-close' stretchy='false'>)</mo>
+              </mrow></math></td><td class='eq-no'>(8)</td></tr></table>
+                    </div>
+      
+                    <div class='newtheorem'>
+                      <p id='listswap-teorema-x-thtxax-teorema-'><span class='head'>
+                      <a id='x1-7016r1'></a>
+                     <span class='cmbx-10x-x-109'><b>Teorema 4.1.</b></span>  </span><a id='x1-7017'></a> <span class='cmti-10x-x-109'>Una mediana absoluta de un grafo siempre est</span>á <span class='cmti-10x-x-109'>en un v</span>é<span class='cmti-10x-x-109'>rtice del mismo.</span>
+                                                                                                                                   
+                    
+                                                                                                                                   
+                          </p> 
+                    </div>
+  
+      <p>
+        Se puede expresar el problema de la p-mediana como el problema de optimización:</p>
+        
+        \begin{equation}
+        \operatorname{min} f(S)=\sum_{i=1}^{n}w_{i}d(v_{i},x_{0})~ sujeto~ a~|S|=p, S\subset G
+        \end{equation}
+        <p>   donde <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mrow><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>S</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-punc'>:</mo><mo class='MathClass-rel'>=</mo><mi class='qopname'> min</mi><mo> ⁡<!-- FUNCTION APPLICATION --> </mo><!-- nolimits --><mo class='MathClass-open' stretchy='false'>{</mo><mi>d</mi><mo class='MathClass-open' stretchy='false'>(</mo><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi>s</mi><mo class='MathClass-close' stretchy='false'>)</mo><mo class='MathClass-rel'>|</mo><mi>s</mi> <mo class='MathClass-rel'>∈</mo> <mi>S</mi><mo class='MathClass-close' stretchy='false'>}</mo></mrow></math> es la distancia
+          entre cada vértice <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><msub><mrow><mi>v</mi></mrow><mrow><mi>i</mi></mrow></msub></math>
+          y <!-- l. 125 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'><mi>S</mi></math>.
+          </p> 
+      
+      <p>El matemático iraní-estadounidense Hakimi demostró que la localización óptima de una instalación siempre se
+        encuentra en un vértice del grafo. Según este problema, cada instalación debe estar localizada de manera que la
+        suma de las distancias ponderadas a los vértices que es mínima. Entonces, por el Teorema 3.1 se puede encontrar
+        una configuración óptima de tal manera que cada instalación se localice en un vértice del grafo. Esta propiedad
+        permite expresar el problema de la p-mediana como un problema de optimización lineal entera:</p>
+  
+        <math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align' columnalign='left'>
+          <mtr><mtd class='align-odd' columnalign='right'><mstyle class='text'><mtext>min </mtext></mstyle><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi><mo class='MathClass-punc'>,</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>=</mo></mtd>                                  <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
+  <mi>i</mi></mrow></msub><msub><mrow><mi>d</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><mspace width='2em'></mspace></mtd>                                                                               <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7019r10'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(10)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+          </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><mstyle class='text'><mtext>sujeto a </mtext></mstyle></mtd>                                          <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>x</mi></mrow><mrow>
+  <mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> i</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                          <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7020r11'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(11)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+          </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>                                                     <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
+  </mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>y</mi></mrow><mrow>
+  <mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mi>p</mi><mspace width='2em'></mspace></mtd>                                                                        <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7021r12'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(12)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+          </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><mn>0</mn> <mo class='MathClass-rel'>≤</mo> <msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub></mtd>                                                <mtd class='align-even'> <mo class='MathClass-rel'>≤</mo> <msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> i</mi><mo class='MathClass-punc'>,</mo><mi>j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                                   <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7022r13'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(13)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+          </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>y</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub></mtd>                                                      <mtd class='align-even'> <mo class='MathClass-rel'>∈</mo><mo class='MathClass-open' stretchy='false'>{</mo><mn>0</mn><mo class='MathClass-punc'>,</mo><mn>1</mn><mo class='MathClass-close' stretchy='false'>}</mo><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                                 <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7023r14'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(14)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
+  </mtd></mtr></mtable></math>
+   
+  
+      <p>donde:</p>
+  
+      </p>
+  
+      <ul class='itemize1'>
+        <li class='itemize'>
+          <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>d</mi>
+              </mrow>
+              <mrow>
+                <mi mathvariant='italic'>ij</mi>
+              </mrow>
+            </msub>
+          </math>
+          es la distancia entre los vértices
+          <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>v</mi>
+              </mrow>
+              <mrow>
+                <mi>i</mi>
+              </mrow>
+            </msub>
+          </math>
+          y
+          <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>v</mi>
+              </mrow>
+              <mrow>
+                <mi>j</mi>
+              </mrow>
+            </msub>
+          </math>.
+        </li>
+        <li class='itemize'>
+          <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>x</mi>
+              </mrow>
+              <mrow>
+                <mi mathvariant='italic'>ij</mi>
+              </mrow>
+            </msub>
+          </math>
+          es la demanda que surge en el vértice
+          <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>v</mi>
+              </mrow>
+              <mrow>
+                <mi>i</mi>
+              </mrow>
+            </msub>
+          </math>
+          satisfecha por
+          <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>v</mi>
+              </mrow>
+              <mrow>
+                <mi>j</mi>
+              </mrow>
+            </msub>
+          </math>
+          (si existe).
+        </li>
+        <li class='itemize'>
+          <!-- l. 140 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <mi>X</mi>
+          </math>
+          es la matriz formada por las variables
+          <!-- l. 140 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>x</mi>
+              </mrow>
+              <mrow>
+                <mi mathvariant='italic'>ij</mi>
+              </mrow>
+            </msub>
+          </math>.
+        </li>
+        <li class='itemize'>
+          <!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>y</mi>
+              </mrow>
+              <mrow>
+                <mi>j</mi>
+              </mrow>
+            </msub>
+          </math>
+          es la variable binaria que decide si un vértice pertenece o no a la p-mediana.
+        </li>
+        <li class='itemize'>
+          <!-- l. 142 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <mrow>
+              <mi>Y</mi>
+            </mrow>
+          </math>
+          denota al vector de las variables
+          <!-- l. 142 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+            <msub>
+              <mrow>
+                <mi>y</mi>
+              </mrow>
+              <mrow>
+                <mi>j</mi>
+              </mrow>
+            </msub>
+          </math>.
+        </li>
+      </ul>
+      <p> La restricción (<a href='#x1-7020r11'>11</a>) significa que la demanda en el vértice
+        <!-- l. 146 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>v</mi>
+            </mrow>
+            <mrow>
+              <mi>i</mi>
+            </mrow>
+          </msub>
+        </math> debe
+        ser satisfecha por alguna instalación. La restricción (<a href='#x1-7021r12'>12</a>) asegura que p vértices pertenezcan a la
+        p-mediana. La restricción (<a href='#x1-7022r13'>13</a>) evita la asignación de demanda a un vértice que no se encuentre en
+        la p-mediana y garantiza la no negatividad de la demanda. La restricción (<a href='#x1-7023r14'>14</a>) obliga a
+        <!-- l. 146 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>y</mi>
+            </mrow>
+            <mrow>
+              <mi>j</mi>
+            </mrow>
+          </msub>
+        </math> a ser
+        una variable binaria.
+      </p>
+    </p>
     
-    <p>El matemático iraní-estadounidense Hakimi demostró que la localización óptima de una instalación siempre se
-      encuentra en un vértice del grafo. Según este problema, cada instalación debe estar localizada de manera que la
-      suma de las distancias ponderadas a los vértices que es mínima. Entonces, por el Teorema 3.1 se puede encontrar
-      una configuración óptima de tal manera que cada instalación se localice en un vértice del grafo. Esta propiedad
-      permite expresar el problema de la p-mediana como un problema de optimización lineal entera:</p>
-
-      <math display='block' xmlns='http://www.w3.org/1998/Math/MathML'><mtable class='align' columnalign='left'>
-        <mtr><mtd class='align-odd' columnalign='right'><mstyle class='text'><mtext>min </mtext></mstyle><mi>f</mi><mo class='MathClass-open' stretchy='false'>(</mo><mi>Y</mi><mo class='MathClass-punc'>,</mo><mi>X</mi><mo class='MathClass-close' stretchy='false'>)</mo> <mo class='MathClass-rel'>=</mo></mtd>                                  <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
-</mrow><mrow><mi>i</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><munderover accent='false' accentunder='false'><mrow><mo> ∑</mo>
-</mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>w</mi></mrow><mrow>
-<mi>i</mi></mrow></msub><msub><mrow><mi>d</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub><mspace width='2em'></mspace></mtd>                                                                               <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7019r10'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(10)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
-        </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><mstyle class='text'><mtext>sujeto a </mtext></mstyle></mtd>                                          <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
-</mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>x</mi></mrow><mrow>
-<mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> i</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                          <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7020r11'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(11)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
-        </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'></mtd>                                                     <mtd class='align-even'><munderover accent='false' accentunder='false'><mrow><mo>∑</mo>
-</mrow><mrow><mi>j</mi><mo class='MathClass-rel'>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msub><mrow><mi>y</mi></mrow><mrow>
-<mi mathvariant='italic'>ij</mi></mrow></msub> <mo class='MathClass-rel'>=</mo> <mi>p</mi><mspace width='2em'></mspace></mtd>                                                                        <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7021r12'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(12)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
-        </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><mn>0</mn> <mo class='MathClass-rel'>≤</mo> <msub><mrow><mi>x</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub></mtd>                                                <mtd class='align-even'> <mo class='MathClass-rel'>≤</mo> <msub><mrow><mi>y</mi></mrow><mrow><mi>j</mi></mrow></msub><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> i</mi><mo class='MathClass-punc'>,</mo><mi>j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                                   <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7022r13'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(13)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
-        </mtd></mtr><mtr><mtd class='align-odd' columnalign='right'><msub><mrow><mi>y</mi></mrow><mrow><mi mathvariant='italic'>ij</mi></mrow></msub></mtd>                                                      <mtd class='align-even'> <mo class='MathClass-rel'>∈</mo><mo class='MathClass-open' stretchy='false'>{</mo><mn>0</mn><mo class='MathClass-punc'>,</mo><mn>1</mn><mo class='MathClass-close' stretchy='false'>}</mo><mo class='MathClass-punc'>,</mo><mi mathvariant='italic'> j</mi> <mo class='MathClass-rel'>=</mo> <mn>1</mn><mo class='MathClass-punc'>,</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>.</mo><mo class='MathClass-punc'>,</mo><mi>n</mi><mspace width='2em'></mspace></mtd>                                                                 <mtd class='align-label' columnalign='right'><mstyle class='label' id='x1-7023r14'></mstyle><!-- endlabel --><mstyle class='maketag'><mtext>(14)</mtext></mstyle><mspace class='nbsp' width='0.33em'></mspace>
-</mtd></mtr></mtable></math>
- 
-
-    <p>donde:</p>
-
-    </p>
-
-    <ul class='itemize1'>
-      <li class='itemize'>
-        <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>d</mi>
-            </mrow>
-            <mrow>
-              <mi mathvariant='italic'>ij</mi>
-            </mrow>
-          </msub>
-        </math>
-        es la distancia entre los vértices
-        <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>v</mi>
-            </mrow>
-            <mrow>
-              <mi>i</mi>
-            </mrow>
-          </msub>
-        </math>
-        y
-        <!-- l. 138 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>v</mi>
-            </mrow>
-            <mrow>
-              <mi>j</mi>
-            </mrow>
-          </msub>
-        </math>.
-      </li>
-      <li class='itemize'>
-        <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>x</mi>
-            </mrow>
-            <mrow>
-              <mi mathvariant='italic'>ij</mi>
-            </mrow>
-          </msub>
-        </math>
-        es la demanda que surge en el vértice
-        <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>v</mi>
-            </mrow>
-            <mrow>
-              <mi>i</mi>
-            </mrow>
-          </msub>
-        </math>
-        satisfecha por
-        <!-- l. 139 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>v</mi>
-            </mrow>
-            <mrow>
-              <mi>j</mi>
-            </mrow>
-          </msub>
-        </math>
-        (si existe).
-      </li>
-      <li class='itemize'>
-        <!-- l. 140 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <mi>X</mi>
-        </math>
-        es la matriz formada por las variables
-        <!-- l. 140 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>x</mi>
-            </mrow>
-            <mrow>
-              <mi mathvariant='italic'>ij</mi>
-            </mrow>
-          </msub>
-        </math>.
-      </li>
-      <li class='itemize'>
-        <!-- l. 141 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>y</mi>
-            </mrow>
-            <mrow>
-              <mi>j</mi>
-            </mrow>
-          </msub>
-        </math>
-        es la variable binaria que decide si un vértice pertenece o no a la p-mediana.
-      </li>
-      <li class='itemize'>
-        <!-- l. 142 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <mrow>
-            <mi>Y</mi>
-          </mrow>
-        </math>
-        denota al vector de las variables
-        <!-- l. 142 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-          <msub>
-            <mrow>
-              <mi>y</mi>
-            </mrow>
-            <mrow>
-              <mi>j</mi>
-            </mrow>
-          </msub>
-        </math>.
-      </li>
-    </ul>
-    <p> La restricción (<a href='#x1-7020r11'>11</a>) significa que la demanda en el vértice
-      <!-- l. 146 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-        <msub>
-          <mrow>
-            <mi>v</mi>
-          </mrow>
-          <mrow>
-            <mi>i</mi>
-          </mrow>
-        </msub>
-      </math> debe
-      ser satisfecha por alguna instalación. La restricción (<a href='#x1-7021r12'>12</a>) asegura que p vértices pertenezcan a la
-      p-mediana. La restricción (<a href='#x1-7022r13'>13</a>) evita la asignación de demanda a un vértice que no se encuentre en
-      la p-mediana y garantiza la no negatividad de la demanda. La restricción (<a href='#x1-7023r14'>14</a>) obliga a
-      <!-- l. 146 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
-        <msub>
-          <mrow>
-            <mi>y</mi>
-          </mrow>
-          <mrow>
-            <mi>j</mi>
-          </mrow>
-        </msub>
-      </math> a ser
-      una variable binaria.
-    </p>
 
     
 
@@ -685,22 +691,22 @@ con <!-- l. 37 --><math display='inline' xmlns='http://www.w3.org/1998/Math/Math
       demanda utilizada es el número de consultas presenciales en cada consultorio. El número de instalaciones que se
       desea localizar varía con cada ejecución del modelo y es lo que llamamos <i>p</i>.</p>
 
-    <figure><img id="fig1" src="pmedian.mod.jpg"
-        alt="Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa IBM ILOG CPLEX Optimization Studio"
-        title="Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa IBM ILOG CPLEX Optimization Studio">
-      <figcaption>Figura 1: Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa
-        <b>IBM ILOG CPLEX Optimization Studio</b>
-      </figcaption>
+    <figure><center><img id="fig1" src="pmedian.mod.jpg"
+      alt="Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa IBM ILOG CPLEX Optimization Studio"
+      title="Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa IBM ILOG CPLEX Optimization Studio">
+    <figcaption>Figura 1: Modelo de la p-mediana en CPLEX. Este modelo ha sido extraído de los ejemplos del programa
+      <b>IBM ILOG CPLEX Optimization Studio</b>
+    </figcaption></center>
     </figure>
 
-    <figure><img id="fig2" src="pmedian.dat.jpg" alt="Fichero de datos pmedian.dat"
-        title="Fichero de datos pmedian.dat">
-      <figcaption>Figura 2: Fichero de datos <i>pmedian.dat</i>.</figcaption>
+    <figure><center><img id="fig2" src="pmedian.dat.jpg" alt="Fichero de datos pmedian.dat"
+      title="Fichero de datos pmedian.dat">
+    <figcaption>Figura 2: Fichero de datos <i>pmedian.dat</i>.</figcaption></center>
     </figure>
 
-    <figure><img id="fig3" src="distancias.dat.jpg" alt="Fichero de datos distancias.dat"
-        title="Fichero de datos distancias.dat">
-      <figcaption>Figura 3: Fichero de datos <i>distancias.dat</i>.</figcaption>
+    <figure><center><img id="fig3" src="distancias.dat.jpg" alt="Fichero de datos distancias.dat"
+      title="Fichero de datos distancias.dat">
+    <figcaption>Figura 3: Fichero de datos <i>distancias.dat</i>.</figcaption></center>
     </figure>
 
   </div>
@@ -715,18 +721,19 @@ con <!-- l. 37 --><math display='inline' xmlns='http://www.w3.org/1998/Math/Math
     <ul>
       <li><b>p=3:</b> Este caso supone una reducción drástica del número de consultorios. Los consultorios
         proporcionados por el modelo son los consultorios de las localidades de: Fuenteliante, Machacón y
-        Cristóbal. Se puede ver la distribución en el <a href="#map">mapa</a>.
+        Cristóbal. Se puede ver la distribución en el <a href="#map">mapa</a>. Se puede descargar <a href="p3_mapa(1).csv">aquí</a>.
 
         Como se puede observar, los consultorios obtenidos se sitúan repartidos a lo largo de toda la provincia. Esto
         era de esperar pues nuestro modelo busca ofrecer una cobertura a todos los consultorios actuales minimizando la
         distancia que tienen que recorrer los pacientes.</li>
       <li><b>p=141:</b> Se trata de una reducción del 50% de los consultorios. El listado de los 141 consultorios
-        abiertos se pueden consultar en el <a href="#map">mapa</a>.</li>
+        abiertos se pueden consultar en el <a href="#map">mapa</a>. Se puede descargar <a href="AnexoI.csv">aquí</a>.</li>
       <li><b>p=250:</b> Implica la reducción de 41 consultorios médicos (seleccionamos aproximadamente el 86% de los
-        consultorios actuales). El listado de los 250 consultorios abiertos se puede consultar en el <a href="#map">mapa</a>.</li>
+        consultorios actuales). El listado de los 250 consultorios abiertos se puede consultar en el <a href="#map">mapa</a>. Se puede descargar <a href="AnexoII.csv">aquí</a>.</li>
     </ul>
 
     <div id="map"></div>
+    <div><br></div>
 
 
 
@@ -948,7 +955,8 @@ con <!-- l. 37 --><math display='inline' xmlns='http://www.w3.org/1998/Math/Math
   <script type="text/javascript" src="p141.js"></script>
   <script type="text/javascript" src="p250.js"></script>
   <script type="text/javascript" src="mapa_salamanca.js"></script>
-  <script type="text/javascript" src="map.js"></script>
+  <script type="text/javascript" src="salamanca.js"></script>
+  <script type="text/javascript" src="map.js"></script> 
 </body>
 
 </html>

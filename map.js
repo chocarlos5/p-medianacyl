@@ -7,6 +7,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
+
 ////capa solucion p=3
 function popup_p3(feature,layer){
     if(feature.properties && feature.properties.name){
@@ -204,3 +205,6 @@ document.getElementById('todos').addEventListener('click', function() {
         
 });
 
+
+///var capa salamanca
+var salamancaJS = L.geoJSON(salamanca).addTo(map);
