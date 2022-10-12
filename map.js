@@ -177,7 +177,7 @@ const marker_todos = {
 };
 
 
-var todosJS = L.geoJSON(mapa_salamanca, {
+var todosJS = L.geoJSON(consultorios, {
     pointToLayer: function(feature, latlng) {
         return L.marker(latlng, marker_todos);
     },
